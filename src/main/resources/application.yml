@@ -1,1 +1,14 @@
-spring.application.name=SpringBatch
+spring:
+  batch:
+    job:
+      # Job? ??? ? Job Name? ????? ???.
+      name: ${job.name:NONE}
+    jdbc:
+      initialize-schema: always
+  datasource:
+    url: jdbc:mysql://127.0.0.1:3306/SPRING_BATCH
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: root
+    password: 1234
+  jpa:
+    show-sql: true
