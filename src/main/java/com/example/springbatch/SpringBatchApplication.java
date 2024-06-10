@@ -1,5 +1,6 @@
 package com.example.springbatch;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.JobParametersBuilder;
 import org.springframework.batch.core.configuration.annotation.EnableBatchProcessing;
@@ -12,13 +13,13 @@ import org.springframework.context.annotation.Bean;
 
 @EnableBatchProcessing
 @SpringBootApplication
+@RequiredArgsConstructor
 public class SpringBatchApplication {
 
-    @Autowired
-    private JobLauncher jobLauncher;
+    private final JobLauncher jobLauncher;
 
-    @Autowired
-    private Job testJob;
+    private final Job testJob;
+    private final Job validatedParamJob;
 
     public static void main(String[] args) {
         SpringApplication.run(SpringBatchApplication.class, args);
@@ -27,7 +28,7 @@ public class SpringBatchApplication {
     @Bean
     public CommandLineRunner run() {
         return args -> {
-            jobLauncher.run(testJob, new JobParametersBuilder()
+            jobLauncher.run(validatedParamJob, new JobParametersBuilder()
                     .addLong("startAt", System.currentTimeMillis())
                     .toJobParameters());
         };
