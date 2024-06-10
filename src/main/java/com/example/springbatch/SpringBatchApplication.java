@@ -20,6 +20,7 @@ public class SpringBatchApplication {
     private final Job testJob;
     private final Job validatedParamJob;
     private final Job jobListenerJob;
+    private final Job dbMigrationJob;
 
     public static void main(String[] args) {
         SpringApplication.run(SpringBatchApplication.class, args);
@@ -28,7 +29,7 @@ public class SpringBatchApplication {
     @Bean
     public CommandLineRunner run() {
         return args -> {
-            jobLauncher.run(jobListenerJob, new JobParametersBuilder()
+            jobLauncher.run(dbMigrationJob, new JobParametersBuilder()
                     .addLong("startAt", System.currentTimeMillis())
                     .toJobParameters());
         };

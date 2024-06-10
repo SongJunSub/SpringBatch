@@ -28,4 +28,12 @@ public class Accounts {
 
     private Date accountDate;
 
+    public Accounts(Orders orders) {
+        this.id = orders.getId();
+        this.orderItem = orders.getOrderItem();
+        this.price = orders.getPrice();
+        this.orderDate = orders.getOrderDate();
+        this.accountDate = new Date();
+    }
+
 }
