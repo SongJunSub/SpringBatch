@@ -30,6 +30,7 @@ public class SpringBatchApplication {
         return args -> {
             jobLauncher.run(validatedParamJob, new JobParametersBuilder()
                     .addLong("startAt", System.currentTimeMillis())
+                            .addString("fileName", "test.csv")
                     .toJobParameters());
         };
     }
