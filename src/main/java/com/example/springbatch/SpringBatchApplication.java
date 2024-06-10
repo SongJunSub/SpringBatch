@@ -5,7 +5,6 @@ import org.springframework.batch.core.Job;
 import org.springframework.batch.core.JobParametersBuilder;
 import org.springframework.batch.core.configuration.annotation.EnableBatchProcessing;
 import org.springframework.batch.core.launch.JobLauncher;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -20,6 +19,7 @@ public class SpringBatchApplication {
 
     private final Job testJob;
     private final Job validatedParamJob;
+    private final Job jobListenerJob;
 
     public static void main(String[] args) {
         SpringApplication.run(SpringBatchApplication.class, args);
@@ -28,9 +28,8 @@ public class SpringBatchApplication {
     @Bean
     public CommandLineRunner run() {
         return args -> {
-            jobLauncher.run(validatedParamJob, new JobParametersBuilder()
+            jobLauncher.run(jobListenerJob, new JobParametersBuilder()
                     .addLong("startAt", System.currentTimeMillis())
-                            .addString("fileName", "test.csv")
                     .toJobParameters());
         };
     }
