@@ -22,6 +22,7 @@ public class SpringBatchApplication {
     private final Job jobListenerJob;
     private final Job dbMigrationJob;
     private final Job fileReadAndWriteJob;
+    private final Job multipleStepJob;
 
     public static void main(String[] args) {
         SpringApplication.run(SpringBatchApplication.class, args);
@@ -31,7 +32,7 @@ public class SpringBatchApplication {
     public CommandLineRunner run() {
         return args -> {
             try {
-                jobLauncher.run(fileReadAndWriteJob, new JobParametersBuilder()
+                jobLauncher.run(multipleStepJob, new JobParametersBuilder()
                         .addLong("startAt", System.currentTimeMillis())
                         .toJobParameters());
             }
