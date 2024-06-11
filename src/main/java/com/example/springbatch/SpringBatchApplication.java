@@ -21,6 +21,7 @@ public class SpringBatchApplication {
     private final Job validatedParamJob;
     private final Job jobListenerJob;
     private final Job dbMigrationJob;
+    private final Job fileReadAndWriteJob;
 
     public static void main(String[] args) {
         SpringApplication.run(SpringBatchApplication.class, args);
@@ -29,9 +30,14 @@ public class SpringBatchApplication {
     @Bean
     public CommandLineRunner run() {
         return args -> {
-            jobLauncher.run(dbMigrationJob, new JobParametersBuilder()
-                    .addLong("startAt", System.currentTimeMillis())
-                    .toJobParameters());
+            try {
+                jobLauncher.run(fileReadAndWriteJob, new JobParametersBuilder()
+                        .addLong("startAt", System.currentTimeMillis())
+                        .toJobParameters());
+            }
+            catch (Exception e) {
+                System.out.println("Error Message: " + e.getMessage());
+            }
         };
     }
 
