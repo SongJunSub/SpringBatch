@@ -23,6 +23,7 @@ public class SpringBatchApplication {
     private final Job dbMigrationJob;
     private final Job fileReadAndWriteJob;
     private final Job multipleStepJob;
+    private final Job conditionalStepJob;
 
     public static void main(String[] args) {
         SpringApplication.run(SpringBatchApplication.class, args);
@@ -32,7 +33,7 @@ public class SpringBatchApplication {
     public CommandLineRunner run() {
         return args -> {
             try {
-                jobLauncher.run(multipleStepJob, new JobParametersBuilder()
+                jobLauncher.run(conditionalStepJob, new JobParametersBuilder()
                         .addLong("startAt", System.currentTimeMillis())
                         .toJobParameters());
             }
