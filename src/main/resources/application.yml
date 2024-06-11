@@ -30,3 +30,11 @@ spring:
       on-profile: test
   jpa:
     database: h2
+  batch:
+    jdbc:
+      initialize-schema: always
+  sql:
+    init:
+      platform: h2
+      mode: always
+      schema-locations: classpath:schema-h2.sql
